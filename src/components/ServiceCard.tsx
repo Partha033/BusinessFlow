@@ -11,7 +11,7 @@ interface ServiceCardProps {
 const ServiceCard = ({ icon: Icon, title, description, delay = 0 }: ServiceCardProps) => {
   return (
     <Card 
-      className="hover-lift border-border/50 bg-card/50 backdrop-blur-sm"
+      className="hover-lift glass-effect animate-fade-up"
       style={{ animationDelay: `${delay}ms` }}
     >
       <CardContent className="p-8 space-y-4">

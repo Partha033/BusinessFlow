@@ -81,4 +81,8 @@ All colors MUST be HSL.
   .text-balance {
     text-wrap: balance;
   }
+  
+  .glass-effect {
+    @apply bg-white/60 backdrop-blur-md border border-white/20;
+  }
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ServiceCard from "@/components/ServiceCard";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import { Code, Cpu, Megaphone, Rocket, CreditCard, Headphones, ArrowRight, CheckCircle2 } from "lucide-react";
 
 const Home = () => {
@@ -44,10 +45,12 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <AnimatedBackground />
+      
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden">
-        <div className="absolute inset-0 gradient-hero opacity-60 animate-float" />
+        <div className="absolute inset-0 gradient-hero opacity-40" />
         <div className="container mx-auto relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-up">
             <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight text-balance">
@@ -114,8 +117,11 @@ const Home = () => {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 px-6 bg-gradient-to-b from-background to-muted/20">
-        <div className="container mx-auto">
+      <section className="py-20 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-primary-soft/5 to-background" />
+        <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-0 w-96 h-96 bg-secondary/5 rounded-full blur-3xl" />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-display font-bold">What We Do</h2>
             <p className="text-xl text-muted-foreground">

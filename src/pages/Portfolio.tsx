@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import { ExternalLink, TrendingUp, Users, Clock } from "lucide-react";
 
 const Portfolio = () => {
@@ -59,9 +60,11 @@ const Portfolio = () => {
     : caseStudies.filter(c => c.industry === filter);
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 relative">
+      <AnimatedBackground />
+      
       {/* Hero */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-4xl text-center space-y-6">
           <h1 className="text-5xl md:text-6xl font-display font-bold animate-fade-up">
             Portfolio
@@ -73,7 +76,7 @@ const Portfolio = () => {
       </section>
 
       {/* Filter */}
-      <section className="px-6 pb-12">
+      <section className="px-6 pb-12 relative z-10">
         <div className="container mx-auto max-w-5xl">
           <div className="flex flex-wrap gap-3 justify-center">
             {industries.map((industry) => (
@@ -91,12 +94,12 @@ const Portfolio = () => {
       </section>
 
       {/* Case Studies */}
-      <section className="px-6 pb-20">
+      <section className="px-6 pb-20 relative z-10">
         <div className="container mx-auto max-w-5xl space-y-12">
           {filteredCases.map((study, index) => (
             <Card 
               key={study.title}
-              className="hover-lift animate-fade-up"
+              className="hover-lift animate-fade-up glass-effect"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-8 md:p-12 space-y-8">

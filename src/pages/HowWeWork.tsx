@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Search, FileText, Rocket, TrendingUp, CheckCircle2, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const HowWeWork = () => {
   const phases = [
@@ -70,9 +71,11 @@ const HowWeWork = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 relative">
+      <AnimatedBackground />
+      
       {/* Hero */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-4xl text-center space-y-6">
           <h1 className="text-5xl md:text-6xl font-display font-bold animate-fade-up">
             Our Process
@@ -84,13 +87,13 @@ const HowWeWork = () => {
       </section>
 
       {/* Timeline */}
-      <section className="py-12 px-6">
+      <section className="py-12 px-6 relative z-10">
         <div className="container mx-auto max-w-5xl">
           <div className="space-y-12">
             {phases.map((phase, index) => (
               <Card 
                 key={phase.number}
-                className="hover-lift animate-fade-up"
+                className="hover-lift animate-fade-up glass-effect"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-8 md:p-12">
@@ -165,7 +168,7 @@ const HowWeWork = () => {
       {/* Downloadable Checklist CTA */}
       <section className="py-20 px-6">
         <div className="container mx-auto max-w-3xl">
-          <Card className="bg-primary-soft border-0">
+          <Card className="bg-primary-soft border-0 glass-effect">
             <CardContent className="p-12 text-center space-y-6">
               <Download className="w-12 h-12 text-primary mx-auto" />
               <h2 className="text-3xl font-display font-bold">Get Our Project Preparation Checklist</h2>

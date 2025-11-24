@@ -1,5 +1,6 @@
 import { Code, Cpu, Megaphone, Rocket, CreditCard, Headphones } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Services = () => {
   const services = [
@@ -84,9 +85,11 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-24 relative">
+      <AnimatedBackground />
+      
       {/* Hero */}
-      <section className="py-20 px-6">
+      <section className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-4xl text-center space-y-6">
           <h1 className="text-5xl md:text-6xl font-display font-bold animate-fade-up">
             Six core services. Infinite possibilities.
@@ -98,12 +101,12 @@ const Services = () => {
       </section>
 
       {/* Services Detail */}
-      <section className="py-12 px-6">
+      <section className="py-12 px-6 relative z-10">
         <div className="container mx-auto max-w-5xl space-y-20">
           {services.map((service, index) => (
             <Card 
               key={service.title}
-              className="hover-lift overflow-hidden animate-fade-up"
+              className="hover-lift overflow-hidden animate-fade-up glass-effect"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <CardContent className="p-8 md:p-12 space-y-6">

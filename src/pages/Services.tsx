@@ -1,6 +1,7 @@
 import { Code, Cpu, Megaphone, Rocket, CreditCard, Headphones } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import WarpBackground from "@/components/WarpBackground";
 
 const Services = () => {
   const services = [
@@ -86,7 +87,8 @@ const Services = () => {
 
   return (
     <div className="min-h-screen pt-24 relative">
-      <AnimatedBackground />
+      {/* <AnimatedBackground /> */}
+      <WarpBackground speed={1} active={true} />
       
       {/* Hero */}
       <section className="py-20 px-6 relative z-10">

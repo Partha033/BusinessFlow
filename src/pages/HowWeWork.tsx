@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Search, FileText, Rocket, TrendingUp, CheckCircle2, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedBackground from "@/components/AnimatedBackground";
+import WarpBackground from "@/components/WarpBackground";
 
 const HowWeWork = () => {
   const phases = [
@@ -72,8 +73,9 @@ const HowWeWork = () => {
 
   return (
     <div className="min-h-screen pt-24 relative">
-      <AnimatedBackground />
-      
+      {/* <AnimatedBackground /> */}
+      <WarpBackground speed={1} active={true} />
+
       {/* Hero */}
       <section className="py-20 px-6 relative z-10">
         <div className="container mx-auto max-w-4xl text-center space-y-6">

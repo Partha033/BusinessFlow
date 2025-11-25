@@ -86,3 +86,40 @@ All colors MUST be HSL.
     @apply bg-white/60 backdrop-blur-md border border-white/20;
   }
 }
+
+
+/* FADE-UP for sections */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.9s ease-out forwards;
+}
+
+/* Delayed fade-up */
+.animate-fade-up-delay {
+  opacity: 0;
+  animation: fadeUp 1.2s ease-out forwards;
+}
+
+/* Title animation */
+@keyframes titleFade {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-title {
+  animation: titleFade 1s ease-out forwards;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-title {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

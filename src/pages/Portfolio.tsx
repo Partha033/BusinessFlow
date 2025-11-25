@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import { ExternalLink, TrendingUp, Users, Clock } from "lucide-react";
+import WarpBackground from "@/components/WarpBackground";
 
 const Portfolio = () => {
   const [filter, setFilter] = useState("All");
@@ -61,7 +62,8 @@ const Portfolio = () => {
 
   return (
     <div className="min-h-screen pt-24 relative">
-      <AnimatedBackground />
+      {/* <AnimatedBackground /> */}
+      <WarpBackground speed={1} active={true} />
       
       {/* Hero */}
       <section className="py-20 px-6 relative z-10">
@@ -78,13 +80,13 @@ const Portfolio = () => {
       {/* Filter */}
       <section className="px-6 pb-12 relative z-10">
         <div className="container mx-auto max-w-5xl">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-3 justify-center ">
             {industries.map((industry) => (
               <Button
                 key={industry}
                 variant={filter === industry ? "default" : "outline"}
                 onClick={() => setFilter(industry)}
-                className="rounded-full"
+                className="rounded-full hover:bg-[#007b78]"
               >
                 {industry}
               </Button>

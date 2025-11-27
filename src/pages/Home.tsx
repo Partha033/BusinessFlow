@@ -241,7 +241,7 @@ const Home = () => {
       </motion.section>
 
       {/* --- SCROLLING CONTENT --- */}
-      <div className="relative z-10 bg-background rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
+      <div className="relative m-10  z-10 bg-background rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
         {/* Problem Section */}
         <section className="py-32 px-6">
           <div className="container mx-auto max-w-3xl text-center space-y-6">
@@ -308,7 +308,7 @@ const Home = () => {
         </section>
 
         {/* Footer CTA */}
-        <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem] relative overflow-hidden">
+        {/* <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem] relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-[120px]" />
           
           <div className="container mx-auto max-w-3xl text-center space-y-8 relative z-10">
@@ -320,7 +320,7 @@ const Home = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

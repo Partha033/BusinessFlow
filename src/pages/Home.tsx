@@ -1,112 +1,222 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import ServiceCard from "@/components/ServiceCard";
 import WarpBackground from "@/components/WarpBackground"; 
-import { Code, Cpu, Megaphone, Rocket, CreditCard, Headphones, ArrowRight, CheckCircle2 } from "lucide-react";
+import Earth from "@/components/Earth"; 
+import { 
+  Code, Cpu, Megaphone, Rocket, CreditCard, Headphones, ArrowRight, 
+  Workflow, Zap, Globe2, Layers, Feather 
+} from "lucide-react";
+
+// --- UPDATED CARD: Image First -> Text on Hover ---
+const ImageToTextCard = ({ title, description, icon: Icon, image, delay, href }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: delay * 0.001, duration: 0.5, ease: "easeOut" }}
+      viewport={{ once: true }}
+      className="group relative h-[450px] w-full overflow-hidden rounded-[2.5rem] shadow-xl cursor-pointer bg-black"
+    >
+      {/* 1. IMAGE LAYER */}
+      <div className="absolute inset-0 z-0">
+        <img 
+          src={image} 
+          alt={title} 
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90 group-hover:opacity-100" 
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 group-hover:opacity-0 transition-opacity duration-500" />
+      </div>
+
+      {/* 2. INITIAL TITLE */}
+      <div className="absolute bottom-0 left-0 p-8 z-10 transition-all duration-500 transform group-hover:translate-y-10 group-hover:opacity-0">
+         <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20">
+              <Icon className="w-6 h-6" />
+            </div>
+            <h3 className="text-2xl font-display font-bold text-white tracking-wide">{title}</h3>
+         </div>
+      </div>
+
+      {/* 3. HOVER OVERLAY */}
+      <div className="absolute inset-0 bg-[#007b78]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20" />
+
+      {/* 4. TEXT CONTENT */}
+      <div className="absolute inset-0 z-30 p-8 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-8 group-hover:translate-y-0">
+        
+        <div className="mb-6 w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30">
+          <Icon className="w-8 h-8" />
+        </div>
+
+        <h3 className="text-3xl font-display font-bold text-white mb-4">
+          {title}
+        </h3>
+
+        <p className="text-white/90 text-lg font-light leading-relaxed mb-6">
+          {description}
+        </p>
+        
+        {/* Link: USES THE 'href' PROP (hash string like "#development") */}
+        <Link 
+          to={{ pathname: "/services", hash: href }}
+          className="flex items-center gap-2 text-white font-medium border-b border-white/30 pb-1 hover:border-white transition-colors cursor-pointer"
+        >
+          <span>Learn more</span>
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+    </motion.div>
+  );
+};
 
 const Home = () => {
-  // --- ANIMATION STATE ---
-  // 0 = Initial Dashboard View
-  // 1 = Zoom Out / Warp Speed Start
-  // 2 = Final Text Reveal (Animation Finished)
   const [phase, setPhase] = useState(0);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ["0vh", "30vh"]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.95]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   useEffect(() => {
-    // 1. Wait 2s, then trigger the zoom/warp
-    const timer1 = setTimeout(() => setPhase(1), 2000);
-    
-    // 2. Wait another 1.5s (while warping), then show final text
-    const timer2 = setTimeout(() => setPhase(2), 3500);
-
+    const timer1 = setTimeout(() => setPhase(1), 500);
+    const timer2 = setTimeout(() => setPhase(2), 1500);
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
   }, []);
 
+  // --- SERVICES DATA WITH HASH LINKS (href is a hash string) ---
   const services = [
-    { icon: Code, title: "Development", description: "Web apps, mobile solutions, no-code platforms. Beautiful interfaces. Systems that don't break." },
-    { icon: Cpu, title: "Automation", description: "AI-powered workflows that eliminate busywork. Connect your tools. Free your team for real work." },
-    { icon: Megaphone, title: "Marketing", description: "Growth strategies that work. We turn attention into revenue—not vanity metrics." },
-    { icon: Rocket, title: "Product Launch", description: "Go-to-market plans that create momentum. Positioning, messaging, coordination, traction." },
-    { icon: CreditCard, title: "Payment Integration", description: "Payment systems that just work. Subscriptions, one-time, global currencies. Configured, tested, monitored." },
-    { icon: Headphones, title: "Support Systems", description: "Customer success infrastructure that scales. Helpdesks, chatbots, SOPs. Keep customers happy." },
+    { 
+      icon: Code, 
+      title: "Development", 
+      description: "Web apps, mobile solutions, no-code platforms. Beautiful interfaces. Systems that don't break.",
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop",
+      href: "#development" 
+    },
+    { 
+      icon: Cpu, 
+      title: "Automation", 
+      description: "AI-powered workflows that eliminate busywork. Connect your tools. Free your team for real work.",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
+      href: "#automation" 
+    },
+    { 
+      icon: Megaphone, 
+      title: "Marketing", 
+      description: "Growth strategies that work. We turn attention into revenue—not vanity metrics.",
+      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop",
+      href: "#marketing" 
+    },
+    { 
+      icon: Rocket, 
+      title: "Product Launch", 
+      description: "Go-to-market plans that create momentum. Positioning, messaging, coordination, traction.",
+      image: "https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?q=80&w=2532&auto=format&fit=crop",
+      href: "#product-launch" 
+    },
+    { 
+      icon: CreditCard, 
+      title: "Payment Integration", 
+      description: "Payment systems that just work. Subscriptions, one-time, global currencies. Configured, tested, monitored.",
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop",
+      href: "#payment-integration" 
+    },
+    { 
+      icon: Headphones, 
+      title: "Support Systems", 
+      description: "Customer success infrastructure that scales. Helpdesks, chatbots, SOPs. Keep customers happy.",
+      image: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?q=80&w=2069&auto=format&fit=crop",
+      href: "#support-systems" 
+    },
   ];
 
-  const benefits = [
-    "End-to-End Execution - From first wireframe to thousandth customer. No handoffs. One team owns your success.",
-    "Speed Without Compromise - We launch MVPs in weeks. Fast doesn't mean sloppy. It means smart.",
-    "Global Quality, Smart Pricing - World-class work without Valley rates. Same excellence everywhere.",
+  const benefitsData = [
+    { 
+      icon: Workflow, 
+      title: "End-to-End Execution", 
+      description: "From first wireframe to thousandth customer. No handoffs. One team owns your success." 
+    },
+    { 
+      icon: Zap, 
+      title: "Speed Without Compromise", 
+      description: "We launch MVPs in weeks. Fast doesn't mean sloppy. It means smart." 
+    },
+    { 
+      icon: Globe2, 
+      title: "Global Quality, Smart Pricing", 
+      description: "World-class work without Valley rates. Same excellence everywhere." 
+    },
   ];
 
   return (
-    // We lock scrolling (overflow-hidden) until phase 2 is reached
-    <div className={`min-h-screen relative bg-background ${phase < 2 ? 'h-screen overflow-hidden' : 'overflow-auto'}`}>
+    <div 
+      ref={containerRef}
+      className="min-h-screen bg-black relative selection:bg-[#007b78] selection:text-white"
+    >
       
-      {/* --- BACKGROUND WARP EFFECT (Persistent) --- */}
-      <div className="absolute inset-0 z-0 h-screen via-background top-0 pointer-events-none">
-        <WarpBackground 
-          speed={phase === 1 ? 40 : phase === 2 ? 2 : 0} 
-          active={phase >= 1} 
-        />
-        {/* GREEN GRADIENT OVERLAY (Primary) */}
-        {/* <div className="absolute inset-0 bg-gradient-to-br from-primary-soft/60 via-background to-primary-soft/60 -z-10 " /> */}
-        {/* If #006865 is your 'primary' color */}
-<div className="absolute inset-0 bg-gradient-to-br from-[#81daca]/60 via-background to-[#81daca]/50 -z-10" />
-      </div>
+      {/* --- HERO SECTION --- */}
+      <motion.section 
+        style={{ y, scale, opacity }}
+        className="sticky top-0 h-screen w-full overflow-hidden z-0 flex flex-col items-center justify-center pt-20"
+      >
+        <div className="absolute inset-0  pointer-events-none flex items-center justify-center">
 
-      {/* --- HERO SECTION CONTAINER (First Image Area) --- */}
-      <div className="relative z-10">
-        
-        {/* This section is 100vh to hold the animation perfectly in center */}
-        <section className="relative h-screen flex flex-col items-center justify-center overflow-hidden px-4">
-          
+          <div className="w-[600px] h-[600px] md:w-[780px] md:h-[780px] z-10 opacity-80 mix-blend-screen">
+             <Earth 
+               dark={1}
+               scale={1.1}
+               diffuse={1.2}
+               mapBrightness={6}
+               baseColor={[0.1, 0.1, 0.1]} 
+               glowColor={[0, 0.48, 0.47]} 
+               markerColor={[0, 0.48, 0.47]} 
+               className="w-full h-full"
+             />
+          <div className="absolute inset-0 opacity-100 -z-50">
+             <WarpBackground speed={1} active={true} />
+          </div>
+          </div>
+
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/80 z-10" />
+        </div>
+
+        <div className="relative z-20 px-4 mt-[-40px]">
           <AnimatePresence mode="wait">
-            
-          
-
-            {/* PHASE 2: The Final Hero Text (Reveals after warp) */}
-            {phase === 2 && (
+            {phase >= 1 && (
               <motion.div
                 key="hero-content"
                 className="container mx-auto max-w-4xl text-center space-y-8"
-                initial={{ opacity: 0, scale: 1.1 }}
+                initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1, ease: "easeOut" }}
               >
-                <motion.h2 
-                  className="text-2xl md:text-3xl text-primary font-medium tracking-tight text-[#006865]"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
+                <motion.div 
+                   initial={{ opacity: 0, y: 20 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ delay: 0.2 }}
+                   className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white/90 mb-4 mx-auto"
                 >
-                  A World beyond Videos.
-                </motion.h2>
+                    <Feather className="w-4 h-4 text-[#007b78]" />
+                    <span className="text-sm font-medium tracking-wide">Global Digital Services</span>
+                </motion.div>
 
-                <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight text-foreground text-balance">
-                  Your Imagination,{" "}
-                  {/* Green Gradient for Engineered */}
-                  <span className="inline-block text-[#006865]">
-                    {Array.from("Engineered.").map((char, i) => (
-                      <motion.span
-                        key={i}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + i * 0.08, type: "spring" }}
-                      >
-                        {char}
-                      </motion.span>
-                    ))}
-                  </span>
+                <h1 className="text-6xl md:text-8xl font-display font-bold tracking-tight text-white text-balance leading-[1.1] drop-shadow-2xl">
+                  Your World,{" "}
+                  <span className="text-[#007b78]">Engineered.</span>
                 </h1>
 
                 <motion.p 
-                  className="text-lg md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed"
+                  className="text-lg md:text-xl text-white/70 font-light max-w-2xl mx-auto leading-relaxed drop-shadow-lg"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 2 }}
+                  transition={{ delay: 0.5 }}
                 >
                    All under one roof. From idea to revenue in weeks.
                 </motion.p>
@@ -115,159 +225,102 @@ const Home = () => {
                   className="flex flex-col sm:flex-row gap-4 justify-center pt-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 2.5 }}
+                  transition={{ delay: 0.8 }}
                 >
-                  <Button asChild size="lg" className="rounded-full bg-[#007b78] text-primary-foreground hover:bg-primary/90 text-base px-8 shadow-shadow-glow transition-smooth">
-                    <Link to="/contact">Book Your Free Consultation</Link>
+                  <Button asChild size="lg" className="rounded-full bg-[#007b78] text-white hover:bg-[#007b78]/90 text-lg px-10 py-6 shadow-[0_0_30px_rgba(0,123,120,0.4)] transition-all hover:scale-105">
+                    <Link to="/contact">Book Free Consultation</Link>
                   </Button>
-                  <Button asChild variant="outline" size="lg" className="rounded-full border-primary/30 text-primary hover:bg-primary-soft text-base px-8 transition-smooth">
-                    <Link to="/how-we-work">See How We Work</Link>
+                  <Button asChild variant="outline" size="lg" className="rounded-full border-white/20 text-white bg-black/40 backdrop-blur-sm hover:bg-white/10 text-lg px-10 py-6 transition-all">
+                    <Link to="/services">View Services</Link>
                   </Button>
-                </motion.div>
-
-                {/* Scroll Indicator (Green) */}
-                <motion.div 
-                  className="absolute bottom-10 left-1/2 -translate-x-1/2 text-primary"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 3.5, duration: 1 }}
-                >
-                  {/* <ArrowRight className="w-6 h-6 rotate-90 animate-bounce" /> */}
                 </motion.div>
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </motion.section>
+
+      {/* --- SCROLLING CONTENT --- */}
+      <div className="relative z-10 bg-background rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
+        {/* Problem Section */}
+        <section className="py-32 px-6">
+          <div className="container mx-auto max-w-3xl text-center space-y-6">
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-foreground leading-tight">
+              Building a business shouldn't require managing five different agencies.
+            </h2>
+            <div className="w-20 h-1 bg-[#007b78] mx-auto rounded-full" />
+            <p className="text-lg text-muted-foreground leading-relaxed font-light">
+              You hire developers. Then marketers. Then automation experts. Then payment specialists.
+              Each handoff wastes time. Creates miscommunication. Delays your launch.
+            </p>
+          </div>
         </section>
 
-        {/* --- REST OF THE PAGE CONTENT --- */}
-        <div className="bg-background relative rounded-t-[3rem] -mt-10 pt-20 shadow-shadow-soft border-t border-white">
-          
-          {/* Problem Section */}
-          <section className="py-20 px-6">
-            <div className="container mx-auto max-w-3xl text-center space-y-6">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground">
-                Building a business shouldn't require managing five different agencies.
-              </h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                You hire developers. Then marketers. Then automation experts. Then payment specialists.
-                Each handoff wastes time. Creates miscommunication. Delays your launch.
-              </p>
-              <p className="text-xl font-semibold text-primary">
-                What if one team did it all?
-              </p>
+        {/* Benefits Grid */}
+        <section className="py-24 px-6 bg-slate-50 relative overflow-hidden">
+          <div className="container mx-auto max-w-6xl relative z-10">
+            <div className="text-center mb-16 space-y-4">
+              <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">Why BusinessFlow</h2>
+              <p className="text-xl text-[#007b78] font-semibold tracking-wide">One Team. Complete Ownership.</p>
             </div>
-          </section>
-
-          {/* Why BusinessFlow */}
-          <section className="py-20 px-6 bg-muted/40">
-            <div className="container mx-auto">
-              <div className="text-center mb-16 space-y-4">
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">Why BusinessFlow</h2>
-                <p className="text-xl text-primary font-semibold">One Team. Complete Ownership. Lightning Fast.</p>
-              </div>
-              <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-                {benefits.map((benefit, index) => {
-                  const [title, description] = benefit.split(' - ');
-                  return (
-                    <div 
-                      key={index}
-                      className="space-y-3 animate-fade-up"
-                    >
-                      <CheckCircle2 className="w-8 h-8 text-primary" />
-                      <h3 className="text-xl font-display font-semibold text-foreground">{title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{description}</p>
+            <div className="grid md:grid-cols-3 gap-8">
+              {benefitsData.map((item, index) => {
+                const IconComponent = item.icon; 
+                return (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    className="group relative bg-white p-10 rounded-[2rem] border border-border/50 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-[#007b78]/10 transition-all duration-300"
+                  >
+                    <div className="w-14 h-14 rounded-2xl bg-[#007b78]/10 flex items-center justify-center text-[#007b78] mb-6 group-hover:scale-110 transition-transform">
+                      <IconComponent className="w-7 h-7" />
                     </div>
-                  );
-                })}
-              </div>
+                    <h3 className="text-2xl font-display font-bold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed text-base">{item.description}</p>
+                  </motion.div>
+                );
+              })}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Services Grid */}
-          <section className="py-20 px-6 relative overflow-hidden">
-            {/* Green gradient glow in background */}
-            <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        {/* --- WHAT WE DO (UPDATED GRID) --- */}
+        <section className="py-32 px-6 relative overflow-hidden bg-white">
+          <div className="container mx-auto relative z-10">
+            <div className="text-center mb-20 space-y-4">
+              <h2 className="text-4xl md:text-6xl font-display font-bold text-foreground">What We Do</h2>
+              <p className="text-xl text-muted-foreground">Everything you need to go from zero to market.</p>
+            </div>
             
-            <div className="container mx-auto relative z-10">
-              <div className="text-center mb-16 space-y-4">
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">What We Do</h2>
-                <p className="text-xl text-muted-foreground">Everything you need to go from zero to market.</p>
-              </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {services.map((service, index) => (
-                  <ServiceCard
-                    key={service.title}
-                    icon={service.icon}
-                    title={service.title}
-                    description={service.description}
-                    delay={index * 100}
-                  />
-                ))}
-              </div>
-              <div className="text-center mt-12">
-                <Button asChild variant="outline" size="lg" className="rounded-full border-primary/20 hover:bg-primary-soft text-primary hover:text-primary-glow">
-                  <Link to="/services">
-                    Explore All Services <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {services.map((service, index) => (
+                <ImageToTextCard
+                  key={service.title}
+                  {...service}
+                  delay={index * 100}
+                />
+              ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          {/* Process Preview */}
-          <section className="py-20 px-6">
-            <div className="container mx-auto max-w-4xl">
-              <div className="text-center mb-16 space-y-4">
-                <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">How We Work</h2>
-                <p className="text-xl text-muted-foreground">Simple, Fast, Transparent</p>
-              </div>
-              <div className="grid md:grid-cols-4 gap-8">
-                {[
-                  { num: "01", title: "Discovery", desc: "Understand your vision, customers, goals. One intensive session." },
-                  { num: "02", title: "Blueprint", desc: "Complete roadmap with timelines within 48 hours." },
-                  { num: "03", title: "Build & Launch", desc: "Weekly updates. Constant feedback. Rapid iteration." },
-                  { num: "04", title: "Scale", desc: "Optimize, automate, grow alongside you." },
-                ].map((step, index) => (
-                  <div key={step.num} className="space-y-3">
-                    <div className="text-4xl font-display font-bold text-primary/30">{step.num}</div>
-                    <h3 className="text-xl font-display font-semibold text-foreground">{step.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="text-center mt-12">
-                <Button asChild variant="outline" size="lg" className="rounded-full border-primary/20 hover:bg-primary-soft text-primary hover:text-primary-glow">
-                  <Link to="/how-we-work">
-                    Learn Our Process 
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </div>
+        {/* Footer CTA */}
+        <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem] relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-[120px]" />
+          
+          <div className="container mx-auto max-w-3xl text-center space-y-8 relative z-10">
+            <h2 className="text-4xl md:text-6xl font-display font-bold">Ready to move fast?</h2>
+            <p className="text-xl text-white/90 font-light">Stop waiting. Start building.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+              <Button asChild size="lg" className="rounded-full bg-white text-[#007b78] hover:bg-white/90 text-lg px-10 py-6 shadow-2xl hover:scale-105 transition-transform font-bold">
+                <Link to="/contact">Book Your Free Consultation</Link>
+              </Button>
             </div>
-          </section>
-
-          {/* Final CTA */}
-          <section className="py-20 px-6 bg-primary-soft/50">
-            <div className="container mx-auto max-w-3xl text-center space-y-8">
-              <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">Ready to move fast?</h2>
-              <p className="text-lg text-muted-foreground">
-                Book a 30-minute consultation. No sales pressure. Just honest conversation about your project.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-base px-8 shadow-shadow-glow">
-                  <Link to="/contact">Book Your Free Consultation</Link>
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Or email us at{" "}
-                <a href="mailto:hello@businessflow.com" className="text-primary hover:underline font-medium">
-                  hello@businessflow.com
-                </a>
-              </p>
-            </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </div>
   );

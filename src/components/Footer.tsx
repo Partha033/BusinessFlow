@@ -4,7 +4,7 @@ import { Mail, Linkedin, Twitter } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-6 py-16">
+      <div className="container mx-auto px-6 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="space-y-4">
             <h3 className="text-xl font-display font-bold text-primary">BusinessFlow</h3>
@@ -57,8 +57,8 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground">
+        <div className="mt-2 pt-8  border-t border-border text-center">
+          <p className="text-sm text-muted-foreground ">
             © {new Date().getFullYear()} BusinessFlow. All rights reserved.
           </p>
         </div>

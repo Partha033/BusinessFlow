@@ -1,12 +1,16 @@
-// WarpBackground.tsx
 import React, { useEffect, useRef } from "react";
 
 interface WarpProps {
   speed: number; // 0 = stopped, 50 = fast
   active: boolean;
+  starColor?: string; // Added optional color prop
 }
 
-const WarpBackground: React.FC<WarpProps> = ({ speed, active }) => {
+const WarpBackground: React.FC<WarpProps> = ({ 
+  speed, 
+  active, 
+  starColor = "#007b78" // Default to your Teal Theme Color
+}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -56,12 +60,10 @@ const WarpBackground: React.FC<WarpProps> = ({ speed, active }) => {
       const centerX = width / 2;
       const centerY = height / 2;
 
-      // 1. Clear the canvas so the CSS Background shows through
+      // 1. Clear the canvas
       ctx.clearRect(0, 0, width, height);
 
-      // 2. Set the "Green" Primary Color for stars/lines
-      // Using a teal/green shade (#0d9488) to contrast against the light background
-      const starColor = "#00e4dd"; 
+      // 2. Set the Color (Uses the prop or the default Teal)
       ctx.fillStyle = starColor;
       ctx.strokeStyle = starColor;
 
@@ -82,7 +84,7 @@ const WarpBackground: React.FC<WarpProps> = ({ speed, active }) => {
         const y2d = centerY + star.y * scale;
 
         // Draw the star (larger as it gets closer)
-        const size = Math.max(0.5, (1 - star.z / width) * 4);
+        const size = Math.max(0.5, (1 - star.z / width) * 3);
         
         // Draw linear streaks if speed is high (Warp effect)
         if (speed > 10) {
@@ -97,8 +99,11 @@ const WarpBackground: React.FC<WarpProps> = ({ speed, active }) => {
            ctx.stroke();
         } else {
            ctx.beginPath();
+           // Reduced opacity for stars further away to blend nicely
+           ctx.globalAlpha = Math.min(1, (1 - star.z / width)); 
            ctx.arc(x2d, y2d, size, 0, Math.PI * 2);
            ctx.fill();
+           ctx.globalAlpha = 1.0; // Reset
         }
       });
 
@@ -111,7 +116,7 @@ const WarpBackground: React.FC<WarpProps> = ({ speed, active }) => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [speed, active]);
+  }, [speed, active, starColor]);
 
   return (
     <canvas

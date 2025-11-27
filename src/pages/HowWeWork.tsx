@@ -1,8 +1,9 @@
+import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Search, FileText, Rocket, TrendingUp, CheckCircle2, Download } from "lucide-react";
+import { Search, FileText, Rocket, TrendingUp, CheckCircle2, Download, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AnimatedBackground from "@/components/AnimatedBackground";
 import WarpBackground from "@/components/WarpBackground";
+import { motion } from "framer-motion";
 
 const HowWeWork = () => {
   const phases = [
@@ -71,132 +72,177 @@ const HowWeWork = () => {
     "No Surprises - Fixed timelines. Clear deliverables. Predictable costs.",
   ];
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
   return (
-    <div className="min-h-screen pt-24 relative">
-      {/* <AnimatedBackground /> */}
-      <WarpBackground speed={1} active={true} />
-
+    <div className="min-h-screen bg-black text-white relative overflow-hidden font-sans selection:bg-[#007b78] selection:text-white">
+      <WarpBackground speed={0.5} active={true} />
+      
       {/* Hero */}
-      <section className="py-20 px-6 relative z-10">
-        <div className="container mx-auto max-w-4xl text-center space-y-6">
-          <h1 className="text-5xl md:text-6xl font-display font-bold animate-fade-up">
-            Our Process
-          </h1>
-          <p className="text-xl text-muted-foreground animate-fade-up" style={{ animationDelay: "100ms" }}>
-            Simple, fast, transparent. From discovery to scale in four clear phases.
-          </p>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-12 px-6 relative z-10">
-        <div className="container mx-auto max-w-5xl">
-          <div className="space-y-12">
-            {phases.map((phase, index) => (
-              <Card 
-                key={phase.number}
-                className="hover-lift animate-fade-up glass-effect"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <CardContent className="p-8 md:p-12">
-                  <div className="grid md:grid-cols-[auto,1fr] gap-8">
-                    <div className="flex flex-col items-center gap-4">
-                      <div className="text-6xl font-display font-bold text-primary/20">{phase.number}</div>
-                      <div className="w-16 h-16 rounded-2xl bg-primary-soft flex items-center justify-center">
-                        <phase.icon className="w-8 h-8 text-primary" />
-                      </div>
-                      <div className="text-sm font-semibold text-primary">{phase.duration}</div>
-                    </div>
-                    
-                    <div className="space-y-6">
-                      <div>
-                        <h2 className="text-3xl font-display font-bold mb-2">{phase.title}</h2>
-                        <p className="text-lg text-foreground/90 leading-relaxed">
-                          {phase.description}
-                        </p>
-                      </div>
-
-                      <div>
-                        <h3 className="font-semibold text-sm uppercase tracking-wide text-primary mb-3">
-                          Key Activities
-                        </h3>
-                        <ul className="space-y-2">
-                          {phase.activities.map((activity, i) => (
-                            <li key={i} className="flex gap-3 text-sm text-muted-foreground">
-                              <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                              <span>{activity}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="pt-4 border-t border-border">
-                        <p className="text-sm">
-                          <span className="font-semibold text-foreground">You Get: </span>
-                          <span className="text-muted-foreground">{phase.deliverable}</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+      <section className="py-24 px-6 relative z-10 flex flex-col items-center justify-center min-h-[60vh] ">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="container mx-auto max-w-4xl text-center space-y-6"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-[#007b78] mb-4">
+             <span className="text-sm font-medium tracking-wide uppercase">The Process</span>
           </div>
-        </div>
+          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight leading-[1.1]">
+            How We <span className="text-[#007b78]">Work</span>
+          </h1>
+          <p className="text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
+            Simple, fast, transparent. From discovery to scale in four clear phases. We've optimized every step to respect your time and budget.
+          </p>
+        </motion.div>
       </section>
 
-      {/* Principles */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-display font-bold text-center mb-12">Our Principles</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {principles.map((principle, index) => {
-              const [title, description] = principle.split(' - ');
+      {/* Timeline Section */}
+      <section className="py-20 px-6 relative z-10 bg-[#99cac9]/90 m-10 rounded-3xl">
+        <div className="container mx-auto max-w-5xl relative">
+          
+          {/* Vertical Connecting Line (Hidden on mobile) */}
+          <div className="absolute left-[27px] md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#007b78]/0 via-[#007b78]/50 to-[#007b78]/0 hidden md:block"></div>
+
+          <div className="space-y-20">
+            {phases.map((phase, index) => {
+              const isEven = index % 2 === 0;
               return (
-                <div 
-                  key={index}
-                  className="p-6 bg-card rounded-2xl space-y-2 animate-fade-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                <motion.div 
+                  key={phase.number}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-100px" }}
+                  variants={fadeInUp}
+                  className={`relative flex flex-col md:flex-row items-center gap-8 ${isEven ? '' : 'md:flex-row-reverse'}`}
                 >
-                  <h3 className="text-lg font-display font-semibold">{title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-                </div>
+                  {/* Timeline Dot (Center) */}
+                  <div className="absolute left-[27px] md:left-1/2 top-0 w-14 h-14 -translate-x-1/2 flex items-center justify-center bg-black border border-[#007b78] rounded-full z-20 shadow-[0_0_20px_rgba(0,123,120,0.3)] hidden md:flex">
+                    <span className="text-[#007b78] font-bold text-sm">{phase.number}</span>
+                  </div>
+
+                  {/* Content Card Side */}
+                  <div className="w-full md:w-1/2 md:px-12">
+                     <Card className="bg-white/10 backdrop-blur-sm border border-white/10 hover:border-[#007b78]/50 transition-colors duration-300 overflow-hidden group">
+                        <CardContent className="p-8">
+                           <div className="flex justify-between items-start mb-6">
+                              <div className="w-12 h-12 rounded-xl bg-[#007b78]/20 flex items-center justify-center text-[#007b78]">
+                                <phase.icon className="w-6 h-6" />
+                              </div>
+                              <span className="px-3 py-1 rounded-full bg-[#007b78]/10 text-[#007b78] text-xs font-bold uppercase tracking-wider border border-[#007b78]/20">
+                                {phase.duration}
+                              </span>
+                           </div>
+                           
+                           <h3 className="text-2xl font-bold mb-3">{phase.title}</h3>
+                           <p className="text-white/70 text-sm leading-relaxed mb-6">
+                             {phase.description}
+                           </p>
+
+                           <div className="space-y-3 pt-6 border-t border-white/10">
+                              {phase.activities.slice(0, 3).map((activity, i) => (
+                                <div key={i} className="flex items-start gap-2">
+                                   <CheckCircle2 className="w-4 h-4 text-[#007b78] mt-0.5 flex-shrink-0" />
+                                   <span className="text-sm text-white/60">{activity}</span>
+                                </div>
+                              ))}
+                           </div>
+                        </CardContent>
+                        {/* Bottom Highlight Bar */}
+                        <div className="h-1 w-full bg-[#007b78] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                     </Card>
+                  </div>
+
+                  {/* Empty Side for balance (or could be an image) */}
+                  <div className="w-full md:w-1/2 hidden md:flex justify-center items-center">
+                     <div className="text-[120px] font-bold text-white/5 select-none leading-none">
+                       {phase.number}
+                     </div>
+                  </div>
+
+                </motion.div>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Downloadable Checklist CTA */}
-      <section className="py-20 px-6">
+      {/* Principles Section */}
+      <section className="py-24 px-6 bg-[#99cac9] rounded-3xl m-10 border-y border-white/10">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">Core Principles</h2>
+            <p className="text-white/60 max-w-2xl mx-auto">The rules we live by to ensure quality and speed.</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {principles.map((principle, index) => {
+              const [title, description] = principle.split(' - ');
+              return (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-8 rounded-2xl bg-white/10 border border-white/10 hover:border-[#007b78]/50 transition-colors group"
+                > 
+                  <h3 className="text-xl font-bold mb-3 text-white group-hover:text-[#007b78] transition-colors">{title}</h3>
+                  <p className="text-black leading-relaxed">{description}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Download CTA */}
+      <section className="py-24 px-6">
         <div className="container mx-auto max-w-3xl">
-          <Card className="bg-primary-soft border-0 glass-effect">
-            <CardContent className="p-12 text-center space-y-6">
-              <Download className="w-12 h-12 text-primary mx-auto" />
-              <h2 className="text-3xl font-display font-bold">Get Our Project Preparation Checklist</h2>
-              <p className="text-muted-foreground">
-                Download our free checklist to prepare for your project kickoff. Everything you need to know before we start working together.
-              </p>
-              <Button size="lg" className="rounded-full">
-                Download Free Checklist
-              </Button>
-            </CardContent>
-          </Card>
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#007b78]/20 to-black border border-[#007b78]/30 p-12 text-center"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#007b78]/20 rounded-full blur-[100px] -z-10"></div>
+            
+            <Download className="w-12 h-12 text-[#007b78] mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Project Preparation Checklist</h2>
+            <p className="text-white/70 mb-8 max-w-xl mx-auto">
+              Before we start, it helps to be prepared. Download our free checklist to gather everything you need for a smooth kickoff.
+            </p>
+            <Button size="lg" className="rounded-full bg-[#007b78] text-white hover:bg-[#006865] px-8">
+              Download Free Checklist
+            </Button>
+          </motion.div>
         </div>
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 px-6 bg-gradient-to-b from-background to-primary-soft">
-        <div className="container mx-auto max-w-3xl text-center space-y-6">
-          <h2 className="text-4xl font-display font-bold">Ready to get started?</h2>
-          <p className="text-lg text-muted-foreground">
-            Book a free consultation and let's map out your project together.
+      {/* <section className="py-24 px-6 bg-[#007b78]">
+        <div className="container mx-auto max-w-4xl text-center">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6">Ready to execute?</h2>
+          <p className="text-xl text-white/90 mb-10 font-light">
+            Stop planning and start building. Let's map out your project today.
           </p>
-          <Button asChild size="lg" className="rounded-full">
-            <a href="/contact">Book Your Free Consultation</a>
+          <Button asChild size="lg" className="rounded-full bg-white text-[#007b78] hover:bg-white/90 text-lg px-10 py-6 font-bold shadow-xl">
+            <a href="/contact">Book Your Kickoff Call</a>
           </Button>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -241,7 +241,7 @@ const Home = () => {
       </motion.section>
 
       {/* --- SCROLLING CONTENT --- */}
-      <div className="relative z-10 bg-background rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
+      <div className="relative z-10 bg-[#99cac9] rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
         {/* Problem Section */}
         <section className="py-32 px-6">
           <div className="container mx-auto max-w-3xl text-center space-y-6">
@@ -257,7 +257,7 @@ const Home = () => {
         </section>
 
         {/* Benefits Grid */}
-        <section className="py-24 px-6 bg-slate-50 relative overflow-hidden">
+        <section className="py-24 px-6 bg-[#99cac9] relative overflow-hidden">
           <div className="container mx-auto max-w-6xl relative z-10">
             <div className="text-center mb-16 space-y-4">
               <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground">Why BusinessFlow</h2>
@@ -288,7 +288,7 @@ const Home = () => {
         </section>
 
         {/* --- WHAT WE DO (UPDATED GRID) --- */}
-        <section className="py-32 px-6 relative overflow-hidden bg-white">
+        <section className="py-32 px-6 relative overflow-hidden bg-[#99cac9]">
           <div className="container mx-auto relative z-10">
             <div className="text-center mb-20 space-y-4">
               <h2 className="text-4xl md:text-6xl font-display font-bold text-foreground">What We Do</h2>
@@ -308,7 +308,7 @@ const Home = () => {
         </section>
 
         {/* Footer CTA */}
-        <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem] relative overflow-hidden">
+        {/* <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem] relative overflow-hidden">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-[120px]" />
           
           <div className="container mx-auto max-w-3xl text-center space-y-8 relative z-10">
@@ -320,7 +320,7 @@ const Home = () => {
               </Button>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

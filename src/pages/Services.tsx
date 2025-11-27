@@ -271,7 +271,7 @@ const ServicesPage = () => {
       </motion.section>
 
       {/* --- MAIN CONTENT --- */}
-      <div className="relative z-20 bg-white rounded-t-[3rem] shadow-[0_-20px_60px_rgba(0,0,0,0.5)] border-t border-white/20 min-h-screen">
+      <div className="relative z-20 m-10 bg-[#99cac9] rounded-3xl rounded-t-[3rem] shadow-[0_-20px_60px_rgba(0,0,0,0.5)] border-t border-white/20 min-h-screen">
         
         {/* Intro Grid */}
         <section className="py-24 px-6 border-b border-gray-100">
@@ -311,8 +311,10 @@ const ServicesPage = () => {
           </div>
         </section>
 
+
+      </div>
         {/* --- CTA FOOTER --- */}
-        <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem]">
+        {/* <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem]">
           <div className="container mx-auto max-w-3xl text-center space-y-8">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -333,9 +335,7 @@ const ServicesPage = () => {
               </div>
             </motion.div>
           </div>
-        </section>
-
-      </div>
+        </section> */}
     </div>
   );
 };

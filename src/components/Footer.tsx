@@ -12,19 +12,19 @@ const Footer = () => {
           <div className="space-y-6">
             <Link to="/" className="block">
               <h3 className="text-2xl font-display font-bold text-white tracking-tight">
-                Business<span className="text-[#007b78]">Flow</span>
+                Acro<span className="text-[#007b78]">wth</span>
               </h3>
             </Link>
             <p className="text-sm text-white/60 leading-relaxed max-w-xs">
               From idea to revenue in weeks. We build the complete infrastructure for your digital business.
             </p>
             <div className="flex gap-4 flex-wrap">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#007b78] hover:text-white transition-all duration-300">
+              {/* <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#007b78] hover:text-white transition-all duration-300">
                 <Linkedin size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#007b78] hover:text-white transition-all duration-300">
+              </a> */}
+              {/* <a href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#007b78] hover:text-white transition-all duration-300">
                 <Twitter size={18} />
-              </a>
+              </a> */}
               <a href="mailto:hello@trybusinessflow.com" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#007b78] hover:text-white transition-all duration-300">
                 <Mail size={18} />
               </a>

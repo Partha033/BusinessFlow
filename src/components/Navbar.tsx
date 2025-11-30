@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
               <img src={logoSrc} className="w-7 h-7 object-contain" draggable={false} />
             </div>
             <span className="text-lg font-semibold text-[#007b78] tracking-wide">
-              BusinessFlow
+              ACROWTH
             </span>
           </Link>
 

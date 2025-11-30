@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Moon } from "lucide-react";
 
-const logoSrc = "public/Logo.png";
+const logoSrc = "/public/Logo.png";
 
 const links = [
   { to: "/", label: "Home" },

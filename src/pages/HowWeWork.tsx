@@ -148,7 +148,7 @@ const HowWeWork = () => {
                   {/* Timeline Dot (Center) */}
                   <div className="absolute left-[27px] md:left-1/2 top-0 w-14 h-14 -translate-x-1/2 flex items-center justify-center bg-black border border-[#007b78] rounded-full z-20 shadow-[0_0_20px_rgba(0,123,120,0.3)] hidden md:flex">
                     <img 
-                      src="/reshot-icon-online-business-5DBXUFQPWS.png" 
+                      src="/public/Logo.png" 
                       alt="Phase Icon" 
                       className="w-8 h-8 object-contain animate-spin-slow" 
                     />

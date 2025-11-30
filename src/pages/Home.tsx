@@ -241,7 +241,7 @@ const Home = () => {
       </motion.section>
 
       {/* --- SCROLLING CONTENT --- */}
-      <div className="relative z-10 bg-[#99cac9] rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
+      <div className="relative z-10 bg-[#99cac9] mx-10 rounded-t-[7rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20">
         {/* Problem Section */}
         <section className="py-32 px-6">
           <div className="container mx-auto max-w-3xl text-center space-y-6">

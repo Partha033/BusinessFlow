@@ -7,6 +7,7 @@ import {
   Code, Cpu, Megaphone, Rocket, CreditCard, Headphones, 
   CheckCircle2, ArrowRight, Zap, Globe, BarChart3, Feather
 } from "lucide-react";
+import Earth from "@/components/Earth"; 
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp = {
@@ -87,15 +88,21 @@ const ServiceSection = ({ service, index, headerOffsetPx = 92 }) => {
         <div className="pt-4 space-y-3">
           {service.offerings && service.offerings.slice(0, 3).map((offering, idx) => (
              <div key={idx} className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-[#007b78]" />
-                <span className="text-slate-700 text-sm font-medium">{offering}</span>
+               <CheckCircle2 className="w-5 h-5 text-[#007b78]" />
+               <span className="text-slate-700 text-sm font-medium">{offering}</span>
              </div>
           ))}
         </div>
 
         <div className="pt-6">
-          <Button variant="link" className="text-[#007b78] p-0 font-bold text-lg hover:text-[#005a58] group">
-            Explore {service.title} <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+          {/* UPDATED: We use asChild to let the Link handle the click, passing the service title in state */}
+          <Button asChild variant="link" className="text-[#007b78] p-0 font-bold text-lg hover:text-[#005a58] group">
+            <Link 
+              to="/contact" 
+              state={{ selectedService: service.title }}
+            >
+              Explore {service.title} <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </Button>
         </div>
       </div>
@@ -249,6 +256,22 @@ const ServicesPage = () => {
           <div className="absolute inset-0 bg-gradient-to-br to-black/90 via-black/50 from-[#006865]/20 -z-50" />
         </div>
 
+        {/* 2. Earth Background Layer (Added) */}
+        <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
+           <div className="w-[600px] h-[600px] md:w-[800px] md:h-[800px] opacity-60 mix-blend-screen translate-y-1/4">
+              <Earth 
+               dark={1}
+               scale={1.1}
+               diffuse={1.2}
+               mapBrightness={6}
+               baseColor={[0.1, 0.1, 0.1]} 
+               glowColor={[0, 0.48, 0.47]} 
+               markerColor={[0, 0.48, 0.47]} 
+               className="w-full h-full"
+              />
+           </div>
+        </div>
+
         <div className="relative z-10 px-4 text-center max-w-4xl mx-auto space-y-6">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -271,39 +294,38 @@ const ServicesPage = () => {
       </motion.section>
 
       {/* --- MAIN CONTENT --- */}
-      <div className="relative z-20 m-10 bg-[#99cac9] rounded-3xl rounded-t-[3rem] shadow-[0_-20px_60px_rgba(0,0,0,0.5)] border-t border-white/20 min-h-screen">
+      <div className="relative z-50 mx-10  bg-[#99cac9] rounded-3xl rounded-t-[4rem] shadow-[0_-20px_60px_rgba(0,0,0,0.5)] border-t border-white/20 min-h-screen py-5 ">
         
         {/* Intro Grid */}
         <section className="py-24 px-6 border-b border-gray-100">
            <div className="container mx-auto max-w-6xl">
-              <motion.div 
-                className="grid md:grid-cols-3 gap-10"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={staggerContainer}
-              >
-                  <AnimatedIntroCard 
-                    icon={Zap}
-                    title="High Velocity"
-                    description="We work in sprints, not marathons. Get tangible results every two weeks."
-                  />
-                  <AnimatedIntroCard 
-                    icon={Globe}
-                    title="Full Transparency"
-                    description="No black boxes. You have access to our code, our boards, and our team."
-                  />
-                  <AnimatedIntroCard 
-                    icon={BarChart3}
-                    title="Data Driven"
-                    description="Every decision we make is backed by data, not gut feelings."
-                  />
-              </motion.div>
+             <motion.div 
+               className="grid md:grid-cols-3 gap-10"
+               initial="hidden"
+               whileInView="visible"
+               viewport={{ once: true, margin: "-50px" }}
+               variants={staggerContainer}
+             >
+                 <AnimatedIntroCard 
+                   icon={Zap}
+                   title="High Velocity"
+                   description="We work in sprints, not marathons. Get tangible results every two weeks."
+                 />
+                 <AnimatedIntroCard 
+                   icon={Globe}
+                   title="Full Transparency"
+                   description="No black boxes. You have access to our code, our boards, and our team."
+                 />
+                 <AnimatedIntroCard 
+                   icon={BarChart3}
+                   title="Data Driven"
+                   description="Every decision we make is backed by data, not gut feelings."
+                 />
+             </motion.div>
            </div>
         </section>
-
         {/* --- DETAILED SERVICES LOOP --- */}
-        <section className="py-12 px-6">
+        <section className=" rounded-3xl">
           <div className="container mx-auto max-w-6xl">
             {services.map((service, index) => (
               <ServiceSection key={index} service={service} index={index} headerOffsetPx={headerOffsetPx} />
@@ -312,30 +334,8 @@ const ServicesPage = () => {
         </section>
 
 
+
       </div>
-        {/* --- CTA FOOTER --- */}
-        {/* <section className="py-24 px-6 bg-[#007b78] text-white rounded-t-[3rem]">
-          <div className="container mx-auto max-w-3xl text-center space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl md:text-6xl font-display font-bold tracking-tight mb-6">
-                Ready to start?
-              </h2>
-              <p className="text-xl text-white/90 font-light mb-8">
-                Let's build something great together.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="rounded-full bg-white text-[#007b78] hover:bg-white/90 text-lg px-10 py-6 shadow-2xl hover:scale-105 transition-transform font-semibold">
-                  <Link to="/contact">Book Your Free Consultation</Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section> */}
     </div>
   );
 };

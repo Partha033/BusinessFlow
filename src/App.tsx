@@ -11,6 +11,7 @@ import HowWeWork from "./pages/HowWeWork";
 import Portfolio from "./pages/Portfolio";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -20,8 +21,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        {/* 1. Place ScrollToTop here so it watches ALL route changes */}
+        <ScrollToTop />
+        
         <Routes>
           <Route path="/" element={<Index />} />
+          
           <Route 
             path="/services" 
             element={
@@ -32,6 +37,7 @@ const App = () => (
               </>
             } 
           />
+          
           <Route 
             path="/how-we-work" 
             element={
@@ -42,6 +48,7 @@ const App = () => (
               </>
             } 
           />
+          
           <Route 
             path="/portfolio" 
             element={
@@ -52,6 +59,7 @@ const App = () => (
               </>
             } 
           />
+          
           <Route 
             path="/contact" 
             element={
@@ -62,6 +70,7 @@ const App = () => (
               </>
             } 
           />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

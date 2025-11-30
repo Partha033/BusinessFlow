@@ -130,7 +130,7 @@ const Contact = () => {
       </motion.section>
 
       {/* --- MAIN CONTENT SHEET --- */}
-      <div className="relative z-10 bg-[#99cac9] rounded-t-[3rem] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20 min-h-screen">
+      <div className="relative z-10 bg-[#99cac9] rounded-t-[7rem] mx-10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] border-t border-white/20 min-h-screen">
         
         <div className="container mx-auto px-6 py-20 max-w-7xl">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
@@ -156,7 +156,7 @@ const Contact = () => {
                       <Label htmlFor="firstName" className="text-sm font-medium text-slate-700">First name</Label>
                       <Input
                         id="firstName"
-                        placeholder="John"
+                        placeholder="firstName"
                         className="h-12 rounded-xl border-slate-200 bg-white focus:border-[#007b78] focus:ring-[#007b78]"
                         value={formData.firstName}
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
@@ -166,7 +166,7 @@ const Contact = () => {
                       <Label htmlFor="lastName" className="text-sm font-medium text-slate-700">Last name</Label>
                       <Input
                         id="lastName"
-                        placeholder="Doe"
+                        placeholder="lastName"
                         className="h-12 rounded-xl border-slate-200 bg-white focus:border-[#007b78] focus:ring-[#007b78]"
                         value={formData.lastName}
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
@@ -181,7 +181,7 @@ const Contact = () => {
                       <Input
                         id="email"
                         type="email"
-                        placeholder="you@company.com"
+                        placeholder="hello@trybusinessflow.com"
                         className="h-12 rounded-xl border-slate-200 bg-white focus:border-[#007b78] focus:ring-[#007b78]"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -302,7 +302,7 @@ const Contact = () => {
               className="w-full lg:w-[35%] space-y-8"
             >
               {/* Info Card 1 */}
-              <div className="bg-white/40 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 shadow-lg">
+              {/* <div className="bg-white/40 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 shadow-lg">
                  <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-[#007b78] mb-4 shadow-sm">
                    <MessageCircle className="w-6 h-6" />
                  </div>
@@ -311,7 +311,7 @@ const Contact = () => {
                  <a href="#" className="flex items-center gap-2 text-[#007b78] font-bold hover:underline">
                    Start Live Chat <ArrowRight className="w-4 h-4" />
                  </a>
-              </div>
+              </div> */}
 
               {/* Info Card 2 */}
               <div className="bg-white/40 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 shadow-lg">
@@ -326,9 +326,9 @@ const Contact = () => {
               </div>
 
               {/* Map Card */}
-              <div className="bg-white rounded-[2rem] overflow-hidden border border-white/20 shadow-xl h-[300px] relative group">
+              <div className="bg-white rounded-[2rem] overflow-hidden border border-white/20 shadow-xl h-[660px] relative group">
                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.945826973347!2d77.5945627!3d12.9112273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae150d754982c9%3A0x6b77242475024229!2sArekere%20Mico%20Layout%20Main%20Rd%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.6958473697823!2d80.2626341!3d12.991295200000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267f62d078cd1%3A0x308f7bd126978164!2s17-16%2C%2017-16%2C%20Dr%20Ambedkar%20St%2C%20Lakshmipuram%2C%20Kalakshetra%20Colony%2C%20Neelankarai%2C%20Chennai%2C%20Tamil%20Nadu%20600041!5e0!3m2!1sen!2sin!4v1764505490319!5m2!1sen!2sin"
                     width="100%" 
                     height="100%" 
                     style={{ border: 0 }} 
@@ -343,7 +343,7 @@ const Contact = () => {
                        <MapPin className="w-5 h-5 text-[#007b78] shrink-0 mt-1" />
                        <div>
                           <p className="text-xs font-bold text-slate-900 uppercase tracking-wide">Headquarters</p>
-                          <p className="text-sm text-slate-600">123 Business Park, Tech City</p>
+                          <p className="text-sm text-slate-600">17/16, Dr Ambedkar St, Radhakrishnan Nagar, Thiruvanmiyur, Chennai, Tamil Nadu 600041</p>
                        </div>
                     </div>
                  </div>

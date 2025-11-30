@@ -43,12 +43,12 @@ const Navbar: React.FC = () => {
   return (
     <header
       className={`
-        fixed top-0 w-full flex justify-center z-[999]
+        fixed top-0 w-full h-[20%] flex justify-center z-[999]
         transition-all duration-500 
         ${hidden ? "-translate-y-20 opacity-0" : "translate-y-0 opacity-100"}
       `}
     >
-      <nav className="w-full max-w-7xl px-4 mt-4">
+      <nav className="w-[70%] max-w-7xl px-4 mt-4 h-auto ">
         <div
           className="
             mx-auto rounded-full bg-white/80 backdrop-blur-xl
@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
         >
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 shrink-0">
-            <div className="w-11 h-11 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 ring-1 ring-white/40">
+            <div className="w-6 h-7 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-br from-pink-50 to-rose-50 ring-1 ring-white/40">
               <img src={logoSrc} className="w-7 h-7 object-contain" draggable={false} />
             </div>
             <span className="text-lg font-semibold text-[#007b78] tracking-wide">

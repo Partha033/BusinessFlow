@@ -4,6 +4,7 @@ import { Search, FileText, Rocket, TrendingUp, CheckCircle2, Download, ArrowRigh
 import { Button } from "@/components/ui/button";
 import WarpBackground from "@/components/WarpBackground";
 import { motion } from "framer-motion";
+import Earth from "@/components/Earth"; 
 
 const HowWeWork = () => {
   const phases = [
@@ -79,16 +80,39 @@ const HowWeWork = () => {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden font-sans selection:bg-[#007b78] selection:text-white">
-      <WarpBackground speed={0.5} active={true} />
+      {/* Global Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <WarpBackground speed={0.5} active={true} />
+      </div>
       
-      {/* Hero */}
-      <section className="py-24 px-6 relative z-10 flex flex-col items-center justify-center min-h-[60vh] ">
+      {/* Hero Section */}
+      <section className="py-24 px-6 relative z-10 flex flex-col items-center justify-center min-h-[60vh] overflow-hidden">
+        
+        {/* Globe Background Element */}
+        <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center">
+           {/* Earth pushed lower to match Contact page aesthetic */}
+           <div className="w-[600px] h-[600px] md:w-[800px] md:h-[800px] z-10 opacity-60 mix-blend-screen translate-y-1/4">
+              <Earth 
+                dark={1}
+                scale={1.1}
+                diffuse={1.2}
+                mapBrightness={6}
+                baseColor={[0.1, 0.1, 0.1]} 
+                glowColor={[0, 0.48, 0.47]} 
+                markerColor={[0, 0.48, 0.47]} 
+                className="w-full h-full"
+              />
+           </div>
+           {/* Gradient overlay to blend bottom of globe */}
+           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-20" />
+        </div>
+
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="container mx-auto max-w-4xl text-center space-y-6"
+          className="container mx-auto max-w-4xl text-center space-y-6 relative z-30"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-[#007b78] mb-4">
              <span className="text-sm font-medium tracking-wide uppercase">The Process</span>
@@ -103,7 +127,7 @@ const HowWeWork = () => {
       </section>
 
       {/* Timeline Section */}
-      <section className="py-20 px-6 relative z-10 bg-[#99cac9]/90 m-10 rounded-3xl">
+      <section className="py-20 px-6 relative z-10 bg-[#99cac9]/90 m-10 rounded-t-[7rem]">
         <div className="container mx-auto max-w-5xl relative">
           
           {/* Vertical Connecting Line (Hidden on mobile) */}
@@ -123,20 +147,23 @@ const HowWeWork = () => {
                 >
                   {/* Timeline Dot (Center) */}
                   <div className="absolute left-[27px] md:left-1/2 top-0 w-14 h-14 -translate-x-1/2 flex items-center justify-center bg-black border border-[#007b78] rounded-full z-20 shadow-[0_0_20px_rgba(0,123,120,0.3)] hidden md:flex">
-                    <span className="text-[#007b78] font-bold text-sm">{phase.number}</span>
+                    <img 
+                      src="/reshot-icon-online-business-5DBXUFQPWS.png" 
+                      alt="Phase Icon" 
+                      className="w-8 h-8 object-contain animate-spin-slow" 
+                    />
                   </div>
-
                   {/* Content Card Side */}
-                  <div className="w-full md:w-1/2 md:px-12">
+                  <div className="w-full md:w-1/2 md:px-12 ">
                      <Card className="bg-white/10 backdrop-blur-sm border border-white/10 hover:border-[#007b78]/50 transition-colors duration-300 overflow-hidden group">
                         <CardContent className="p-8">
                            <div className="flex justify-between items-start mb-6">
-                              <div className="w-12 h-12 rounded-xl bg-[#007b78]/20 flex items-center justify-center text-[#007b78]">
-                                <phase.icon className="w-6 h-6" />
-                              </div>
-                              <span className="px-3 py-1 rounded-full bg-[#007b78]/10 text-[#007b78] text-xs font-bold uppercase tracking-wider border border-[#007b78]/20">
-                                {phase.duration}
-                              </span>
+                             <div className="w-12 h-12 rounded-xl bg-[#007b78]/20 flex items-center justify-center text-[#007b78]">
+                               <phase.icon className="w-6 h-6" />
+                             </div>
+                             <span className="px-3 py-1 rounded-full bg-[#007b78]/10 text-[#007b78] text-xs font-bold uppercase tracking-wider border border-[#007b78]/20">
+                               {phase.duration}
+                             </span>
                            </div>
                            
                            <h3 className="text-2xl font-bold mb-3">{phase.title}</h3>
@@ -145,12 +172,12 @@ const HowWeWork = () => {
                            </p>
 
                            <div className="space-y-3 pt-6 border-t border-white/10">
-                              {phase.activities.slice(0, 3).map((activity, i) => (
-                                <div key={i} className="flex items-start gap-2">
-                                   <CheckCircle2 className="w-4 h-4 text-[#007b78] mt-0.5 flex-shrink-0" />
-                                   <span className="text-sm text-white/60">{activity}</span>
-                                </div>
-                              ))}
+                             {phase.activities.slice(0, 3).map((activity, i) => (
+                               <div key={i} className="flex items-start gap-2">
+                                  <CheckCircle2 className="w-4 h-4 text-[#007b78] mt-0.5 flex-shrink-0" />
+                                  <span className="text-sm text-white/60">{activity}</span>
+                               </div>
+                             ))}
                            </div>
                         </CardContent>
                         {/* Bottom Highlight Bar */}
@@ -160,7 +187,7 @@ const HowWeWork = () => {
 
                   {/* Empty Side for balance (or could be an image) */}
                   <div className="w-full md:w-1/2 hidden md:flex justify-center items-center">
-                     <div className="text-[120px] font-bold text-white/5 select-none leading-none">
+                     <div className="text-[120px] font-bold text-white/30 select-none leading-none">
                        {phase.number}
                      </div>
                   </div>
@@ -230,19 +257,6 @@ const HowWeWork = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* Final CTA */}
-      {/* <section className="py-24 px-6 bg-[#007b78]">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">Ready to execute?</h2>
-          <p className="text-xl text-white/90 mb-10 font-light">
-            Stop planning and start building. Let's map out your project today.
-          </p>
-          <Button asChild size="lg" className="rounded-full bg-white text-[#007b78] hover:bg-white/90 text-lg px-10 py-6 font-bold shadow-xl">
-            <a href="/contact">Book Your Kickoff Call</a>
-          </Button>
-        </div>
-      </section> */}
     </div>
   );
 };

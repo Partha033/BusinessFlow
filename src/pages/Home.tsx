@@ -97,42 +97,42 @@ const Home = () => {
       icon: Code, 
       title: "Development", 
       description: "Web apps, mobile solutions, no-code platforms. Beautiful interfaces. Systems that don't break.",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop",
+      image: "https://i.pinimg.com/1200x/bc/5f/2e/bc5f2e71b57de80e0a8b40b759cb5291.jpg",
       href: "#development" 
     },
     { 
       icon: Cpu, 
       title: "Automation", 
       description: "AI-powered workflows that eliminate busywork. Connect your tools. Free your team for real work.",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
+      image: "https://i.pinimg.com/736x/02/fd/74/02fd74bb73038ed94563954400ae8ddf.jpg",
       href: "#automation" 
     },
     { 
       icon: Megaphone, 
       title: "Marketing", 
       description: "Growth strategies that work. We turn attention into revenue—not vanity metrics.",
-      image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop",
+      image: "https://i.pinimg.com/1200x/03/62/dd/0362dd85b61d9bea7a8026ad3f2d5771.jpg",
       href: "#marketing" 
     },
     { 
       icon: Rocket, 
       title: "Product Launch", 
       description: "Go-to-market plans that create momentum. Positioning, messaging, coordination, traction.",
-      image: "https://images.unsplash.com/photo-1636819488524-1f019c4e1c44?q=80&w=2532&auto=format&fit=crop",
+      image: "https://i.pinimg.com/736x/72/8b/ab/728baba617c7d48b1f67c7d0a94ea90f.jpg",
       href: "#product-launch" 
     },
     { 
       icon: CreditCard, 
       title: "Payment Integration", 
       description: "Payment systems that just work. Subscriptions, one-time, global currencies. Configured, tested, monitored.",
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop",
+      image: "https://i.pinimg.com/1200x/db/f1/fa/dbf1fa376b78438430d22d528bcec08d.jpg",
       href: "#payment-integration" 
     },
     { 
       icon: Headphones, 
       title: "Support Systems", 
       description: "Customer success infrastructure that scales. Helpdesks, chatbots, SOPs. Keep customers happy.",
-      image: "https://images.unsplash.com/photo-1534536281715-e28d76689b4d?q=80&w=2069&auto=format&fit=crop",
+      image: "https://i.pinimg.com/1200x/61/13/4e/61134eed775e7922d23ff7e4a8c21d06.jpg",
       href: "#support-systems" 
     },
   ];
@@ -273,9 +273,10 @@ const Home = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.2 }}
                     viewport={{ once: true }}
-                    className="group relative bg-white p-10 rounded-[2rem] border border-border/50 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-[#007b78]/10 transition-all duration-300"
+                    whileHover={{y: -20 }}
+                    className="group p-10 bg-slate-50/50 rounded-[2rem] border border-slate-100 transition-all duration-300 hover:bg-white hover:shadow-2xl hover:shadow-[#007b78]/10 hover:border-[#007b78]/20"
                   >
-                    <div className="w-14 h-14 rounded-2xl bg-[#007b78]/10 flex items-center justify-center text-[#007b78] mb-6 group-hover:scale-110 transition-transform">
+                    <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[#007b78] mb-6 shadow-sm group-hover:bg-[#007b78] group-hover:text-white group-hover:scale-110 transition-all duration-300">
                       <IconComponent className="w-7 h-7" />
                     </div>
                     <h3 className="text-2xl font-display font-bold text-foreground mb-3">{item.title}</h3>
